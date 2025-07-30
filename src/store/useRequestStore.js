@@ -10,6 +10,8 @@ export const useRequestStore = create((set, get) => ({
   isSearchResultsLoading: false,
   isFriendRequestsLoading: false,
   isFriendsLoading: false,
+  hasCheckedNotifications: false,
+  hasNewNotifications: false,
 
   getFriendRequests: async () => {
     set({ isFriendRequestsLoading: true });

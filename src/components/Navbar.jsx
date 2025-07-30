@@ -2,6 +2,7 @@ import React from 'react'
 import { useAuthStore } from '../store/useAuthStore'
 import { LogOut, MessageSquare, Settings, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import NotificationDropdown from './NotificationDropdown';
 
 
 const Navbar = () => {
@@ -31,7 +32,7 @@ const Navbar = () => {
 
                         {authUser && (
                             <>
-                                                        
+                                <NotificationDropdown/>
                                 <Link to={"/profile"} className={`btn btn-sm gap-2`}>
                                     <User className="size-5" />
                                     <span className="hidden sm:inline"> Profile </span>
