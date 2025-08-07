@@ -26,16 +26,8 @@ const NotificationDropdown = () => {
             <span className="flex align-middle font-bold">Notifications</span>
           </div>
           <div className="py-1">
-            <RequestNotification />
-            <RequestNotification />
-            <RequestNotification />
-            <RequestNotification />
-            <RequestNotification />
-            <RequestNotification />
-            <RequestNotification />
-            <RequestNotification />
-            <RequestNotification />
-            <RequestNotification />
+            <RequestNotification username="Bill Wortzwic" />
+            <RequestNotification username="Mark Greyson" />
           </div>
         </div>
       )}

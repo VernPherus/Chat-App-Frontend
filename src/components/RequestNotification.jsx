@@ -1,18 +1,18 @@
 import { Check, CrossIcon, X } from "lucide-react";
 import React from "react";
 
-function RequestNotification() {
+function RequestNotification(data) {
   return (
     <div className="h-16 bg-base-100 flex flex-row justify-evenly items-center">
       <div className="relative mx-auto lg:mx-0">
         <img
-          src="/avatar.png"
+          src={data.profilePic || "/avatar.png"}
           alt=""
           className="size-12 object-cover rounded-full"
         />
       </div>
       <div className="flex flex-col">
-        <h2 className="font-semibold">Username</h2>
+        <h2 className="font-semibold">{data.username}</h2>
         <span className="text-xs font-light text-base-content/60">
           Sent you a friend request.
         </span>
