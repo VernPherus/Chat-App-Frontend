@@ -1,10 +1,19 @@
 import React, { useState } from 'react'
-import {Bell, BellDot, BellDotIcon,} from 'lucide-react';
+import { Bell, BellDot, BellDotIcon, } from 'lucide-react';
 import RequestNotification from './RequestNotification';
+import NoNotifications from './NoNotifications';
 
 const NotificationDropdown = () => {
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const requestNotif = [
+    { username: "Bill Wortszic" },
+    { username: "Mark Greyson" },
+    { username: "Orgalorg" },
+    { username: "Macharious" },
+    { username: "Odin Parkins" },
+  ]
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen)
@@ -25,10 +34,18 @@ const NotificationDropdown = () => {
           <div className="px-6 py-2 bg-base-200 rounded-t-md border-b-2 border-b-base-content">
             <span className="flex align-middle font-bold">Notifications</span>
           </div>
-          <div className="py-1">
-            <RequestNotification username="Bill Wortzwic" />
-            <RequestNotification username="Mark Greyson" />
-          </div>
+          {
+            !requestNotif ?
+              <NoNotifications /> :
+              <div className="py-1">
+                {
+                  requestNotif.map((notif) => (
+                    <RequestNotification username={notif.username} />
+                  ))
+                }
+              </div>
+          }
+
         </div>
       )}
     </div>
