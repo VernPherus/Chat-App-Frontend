@@ -2,6 +2,7 @@ import { Check, CrossIcon, X } from "lucide-react";
 import React from "react";
 
 function RequestNotification(data) {
+
   return (
     <div className="h-16 bg-base-100 flex flex-row justify-evenly items-center">
       <div className="relative mx-auto lg:mx-0">

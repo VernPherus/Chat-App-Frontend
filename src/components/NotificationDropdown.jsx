@@ -15,6 +15,8 @@ const NotificationDropdown = () => {
     { username: "Odin Parkins" },
   ]
 
+  // const requestNotif = null
+
   const toggleDropdown = () => {
     setIsOpen(!isOpen)
   }

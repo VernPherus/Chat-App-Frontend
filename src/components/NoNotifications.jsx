@@ -2,7 +2,7 @@ import React from 'react'
 
 const NoNotifications = () => {
   return (
-    <div>NoNotifications</div>
+    <div className="w-full h-full">NoNotifications</div>
   )
 }
 
