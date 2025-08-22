@@ -1,8 +1,14 @@
 import React from 'react'
 import { MessageSquare } from 'lucide-react'
 import SearchBar from './SearchBar'
+import { useRequestStore } from '../store/useRequestStore'
+import { useAuthStore } from '../store/useAuthStore'
 
 const NoChatSelected = () => {
+
+    const { searchResults } = useRequestStore();
+    const { authUser } = useAuthStore();
+
     return (
         <div className="w-full h-full flex flex-1 flex-col p-16 bg-base-100/50">
             <SearchBar />

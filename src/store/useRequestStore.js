@@ -37,10 +37,10 @@ export const useRequestStore = create((set, get) => ({
     }
   },
 
-  getSearchResults: async () => {
+  getSearchResults: async (searchItem) => {
     set({ isSearchResultsLoading: true });
     try {
-      const res = await axiosInstance.get("/requests/search");
+      const res = await axiosInstance.get("/requests/search", searchItem);
       set({ searchResults: res });
     } catch (error) {
       toast.error(error.response.data.message);
