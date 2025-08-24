@@ -18,7 +18,7 @@ function RequestNotification(data) {
           Sent you a friend request.
         </span>
       </div>
-      <div className="flext flex-row justify-evenly space-x-1">
+      <div className="flex flex-row justify-evenly space-x-1">
         <button className="btn btn-sm bg-base-100 border-base-content btn-circle">
           <Check size={22} />
         </button>
