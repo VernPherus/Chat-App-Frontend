@@ -1,19 +1,19 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Bell, BellDot, BellDotIcon, } from 'lucide-react';
 import RequestNotification from './RequestNotification';
 import NoNotifications from './NoNotifications';
+import { useRequestStore } from '../store/useRequestStore';
 
 const NotificationDropdown = () => {
 
   const [isOpen, setIsOpen] = useState(false);
+  const { requests, getFriendRequests, hasCheckedNotifications, hasNewNotifications } = useRequestStore();
 
-  const requestNotif = [
-    { username: "Bill Wortszic" },
-    { username: "Mark Greyson" },
-    { username: "Orgalorg" },
-    { username: "Macharious" },
-    { username: "Odin Parkins" },
-  ]
+  const requestNotif = requests;
+
+  useEffect(() => {
+    getFriendRequests()
+  }, [getFriendRequests])
 
   // const requestNotif = null
 
@@ -37,15 +37,18 @@ const NotificationDropdown = () => {
             <span className="flex align-middle font-bold">Notifications</span>
           </div>
           {
-            !requestNotif ?
-              <NoNotifications /> :
-              <div className="py-1">
-                {
-                  requestNotif.map((notif) => (
-                    <RequestNotification username={notif.username} />
-                  ))
-                }
-              </div>
+            <div className="py-1">
+              {
+                requestNotif.map((notif) => (
+                  <RequestNotification username={notif.username} />
+                ))
+              }
+              {
+                requestNotif.length === 0 && (
+                  <NoNotifications />
+                )
+              }
+            </div>
           }
 
         </div>

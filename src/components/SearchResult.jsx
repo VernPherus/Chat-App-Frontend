@@ -9,8 +9,8 @@ function SearchResult(data) {
                     <div className="avatar">
                         <div className="size-10 rounded-full relative">
                             <img
-                                src="/avatar.png"
-                                alt=""
+                                src={data.profilePic || "/avatar.png"}
+                                alt={data.fullName}
                                 className="size-12 object-cover rounded-full"
                             />
                         </div>
