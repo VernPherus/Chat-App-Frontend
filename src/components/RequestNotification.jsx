@@ -1,4 +1,4 @@
-import { Check, CrossIcon, X } from "lucide-react";
+import { Check, X } from "lucide-react";
 import React from "react";
 
 function RequestNotification(data) {

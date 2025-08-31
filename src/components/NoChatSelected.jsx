@@ -3,13 +3,20 @@ import { MessageSquare, UserPlus, UserPlus2 } from 'lucide-react'
 import SearchBar from './SearchBar'
 import { useRequestStore } from '../store/useRequestStore'
 import { useAuthStore } from '../store/useAuthStore'
+import SearchResult from './SearchResult'
 
 const NoChatSelected = () => {
 
     const { searchResults } = useRequestStore();
     const { authUser } = useAuthStore();
 
-    const searchedUsers = []
+    const searchedUsers = [
+        { username: "Bill Wortszic" },
+        { username: "Mark Greyson" },
+        { username: "Orgalorg" },
+        { username: "Macharious" },
+        { username: "Odin Parkins" },
+    ]
 
     return (
         <div className="w-full h-full flex flex-1 flex-col p-16 bg-base-100/50">
@@ -34,28 +41,10 @@ const NoChatSelected = () => {
                         Select a conversation from the sidebar to start chatting
                     </p>
                 </div> :
-                    <div className="flex flex-1 flex-col space-y-6">
-                        <div className="h-16 bg-base-100 flex flex-row justify-between items-center">
-                            <div className="flex items-center gap-3 w-full">
-                                <div className="relative mx-auto lg:mx-0">
-                                    <img
-                                        src="/avatar.png"
-                                        alt=""
-                                        className="size-12 object-cover rounded-full"
-                                    />
-                                </div>
-                                <div className="flex flex-col w-full">
-                                    <h2 className="font-semibold">Username</h2>
-                                </div>
-                                <button className="btn btn-sm bg-base-100 border-base-content">
-                                    <UserPlus2 />
-                                    <span className="hidden sm:inline">Add friend</span>
-                                </button>
+                    searchedUsers.map((users) => (
+                        <SearchResult username={users.username} />
+                    ))
 
-                            </div>
-                        </div>
-
-                    </div>
             }
 
         </div>
