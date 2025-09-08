@@ -40,7 +40,7 @@ const NotificationDropdown = () => {
             <div className="py-1">
               {
                 requestNotif.map((notif) => (
-                  <RequestNotification username={notif.username} />
+                  <RequestNotification username={notif.senderName} profilePic={notif.senderProfile} />
                 ))
               }
               {
