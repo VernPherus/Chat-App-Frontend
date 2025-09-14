@@ -11,18 +11,18 @@ const NoChatSelected = () => {
     const { authUser } = useAuthStore();
 
     const searchedUsers = [
-        { username: "Bill Wortszic" },
-        { username: "Mark Greyson" },
-        { username: "Orgalorg" },
-        { username: "Macharious" },
-        { username: "Odin Parkins" },
+        { fullName: "Bill Wortszic" },
+        { fullName: "Mark Greyson" },
+        { fullName: "Orgalorg" },
+        { fullName: "Macharious" },
+        { fullName: "Odin Parkins" },
     ]
 
     return (
         <div className="w-full h-full flex flex-1 flex-col p-16 bg-base-100/50">
             <SearchBar />
             {
-                !searchedUsers ? <div className="flex flex-1 flex-col items-center justify-center space-y-6">
+                searchResults.length === 0 ? <div className="flex flex-1 flex-col items-center justify-center space-y-6">
                     {/* Icon Display */}
                     <div className="flex justify-center gap-4 mb-4">
                         <div className="relative">
@@ -41,8 +41,8 @@ const NoChatSelected = () => {
                         Select a conversation from the sidebar to start chatting
                     </p>
                 </div> :
-                    searchedUsers.map((users) => (
-                        <SearchResult username={users.username} />
+                    searchResults.map((users) => (
+                        <SearchResult username={users.fullName} />
                     ))
 
             }

@@ -28,7 +28,7 @@ export const useRequestStore = create((set, get) => ({
   getFriends: async () => {
     set({ isFriendsLoading: true });
     try {
-      const res = await axiosInstance.get("/requests/all-friends");
+      const res = await axiosInstance.get("/request/all-friends");
       set({ friends: res.data });
     } catch (error) {
       toast.error(error.response.data.message);
@@ -40,7 +40,7 @@ export const useRequestStore = create((set, get) => ({
   getSearchResults: async (searchItem) => {
     set({ isSearchResultsLoading: true });
     try {
-      const res = await axiosInstance.get("/requests/search", searchItem);
+      const res = await axiosInstance.post("/request/search", searchItem);
       set({ searchResults: res });
     } catch (error) {
       toast.error(error.response.data.message);
@@ -52,17 +52,17 @@ export const useRequestStore = create((set, get) => ({
   sendFriendRequest: async (userId) => {
     const requests = get();
     try {
-      const res = await axiosInstance.post(`/requests/send-request/${userId}`);
+      const res = await axiosInstance.post(`/request/send-request/${userId}`);
       set({ requests: [...requests, res.data] });
     } catch (error) {
-      toast.error(error.reponse.data.message);
+      toast.error(error.response.data.message);
     }
   },
 
   unfriendUser: async (friendId) => {
     const friends = get();
     try {
-      const res = await axiosInstance.post(`/requests/unfriend`, friendId);
+      const res = await axiosInstance.post(`/request/unfriend`, friendId);
       set({ friends: [...friends, res.data] });
     } catch (error) {
       toast.error(error.response.data.message);
@@ -73,7 +73,7 @@ export const useRequestStore = create((set, get) => ({
     const friends = get();
     try {
       const res = await axiosInstance.put(
-        `/requests/accept-request/:${friendId}`
+        `/request/accept-request/:${friendId}`
       );
       set({ friends: [...friends, res.data] });
     } catch (error) {
@@ -85,7 +85,7 @@ export const useRequestStore = create((set, get) => ({
     const friends = get();
     try {
       const res = await axiosInstance.put(
-        `/requests/reject-request/:${friendId}`
+        `/request/reject-request/:${friendId}`
       );
       set({ friends: [...friends, res.data] });
     } catch (error) {
@@ -97,7 +97,7 @@ export const useRequestStore = create((set, get) => ({
     const friends = get();
     try {
       const res = await axiosInstance.put(
-        `/requests/reject-request/:${friendId}`
+        `/request/reject-request/:${friendId}`
       );
       set({ friends: [...friends, res.data] });
     } catch (error) {
