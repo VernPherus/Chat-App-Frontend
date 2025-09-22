@@ -41,10 +41,9 @@ const NoChatSelected = () => {
                         Select a conversation from the sidebar to start chatting
                     </p>
                 </div> :
-                    searchResults.map((users) => (
-                        <SearchResult username={users.fullName} />
+                    searchResults.map((user) => (
+                        <SearchResult id={user._id} username={user.fullName} profilePic={user.profilePic} />
                     ))
-
             }
 
         </div>

@@ -3,6 +3,14 @@ import toast from "react-hot-toast";
 // import { useAuthStore } from "./useAuthStore";
 import { axiosInstance } from "../lib/axios";
 
+export const RequestStatus = {
+  PENDING: "p",
+  ACCEPTED: "a",
+  REJECTED: "r",
+  CANCELED: "c",
+};
+
+
 export const useRequestStore = create((set, get) => ({
   requests: [],
   friends: [],
@@ -41,7 +49,7 @@ export const useRequestStore = create((set, get) => ({
     set({ isSearchResultsLoading: true });
     try {
       const res = await axiosInstance.post("/request/search", searchItem);
-      set({ searchResults: res });
+      set({ searchResults: res.data });
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
