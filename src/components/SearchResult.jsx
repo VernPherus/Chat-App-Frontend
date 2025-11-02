@@ -1,10 +1,18 @@
-import React from "react";
-import { UserPlus2 } from "lucide-react";
+import React, { useEffect } from "react";
+import { UserPlus2, X } from "lucide-react";
 import { useRequestStore } from "../store/useRequestStore";
 
 function SearchResult({ id, username, fullName, profilePic }) {
-  const { sendFriendRequest, cancelFriendRequest, requests } =
-    useRequestStore();
+  const {
+    sendFriendRequest,
+    getFriendRequests,
+    cancelFriendRequest,
+    requests,
+  } = useRequestStore();
+
+  useEffect(() => {
+    getFriendRequests();
+  });
 
   const existingRequest = requests.find(
     (r) => r.receiverId === id && r.status === "p"
@@ -13,8 +21,6 @@ function SearchResult({ id, username, fullName, profilePic }) {
   const handleSendRequest = async () => {
     try {
       await sendFriendRequest(id);
-
-      // update button
     } catch (error) {
       console.error("Failed to send friend request: ", error);
     }
@@ -56,8 +62,7 @@ function SearchResult({ id, username, fullName, profilePic }) {
           ) : (
             <button
               onClick={handleCancelRequest}
-              disabled
-              className="btn btn-sm bg-base-200 border-base-content text-gray-400 cursor-not-allowed"
+              className="btn btn-sm bg-base-200 border-base-content"
             >
               <X />
               <span className="hidden sm:inline">Unsend friend request</span>
