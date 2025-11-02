@@ -10,7 +10,6 @@ export const RequestStatus = {
   CANCELED: "c",
 };
 
-
 export const useRequestStore = create((set, get) => ({
   requests: [],
   friends: [],
@@ -101,13 +100,12 @@ export const useRequestStore = create((set, get) => ({
     }
   },
 
-  cancelFriendRequest: async (friendId) => {
-    const friends = get();
+  cancelFriendRequest: async (userId) => {
+    const { requests } = get();
     try {
-      const res = await axiosInstance.put(
-        `/request/reject-request/:${friendId}`
-      );
-      set({ friends: [...friends, res.data] });
+      await axiosInstance.post(`/request/cancel-request/${userId}`);
+      set({ requests: requests.filter((r) => r.receiverId !== userId) });
+      toast.success("Friend request cancelled!");
     } catch (error) {
       toast.error(error.response.data.message);
     }

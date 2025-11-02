@@ -1,25 +1,30 @@
-import React, { useEffect, useState } from 'react'
-import { Bell, BellDot, BellDotIcon, } from 'lucide-react';
-import RequestNotification from './RequestNotification';
-import NoNotifications from './NoNotifications';
-import { useRequestStore } from '../store/useRequestStore';
+import React, { useEffect, useState } from "react";
+import { Bell, BellDot, BellDotIcon } from "lucide-react";
+import RequestNotification from "./RequestNotification";
+import NoNotifications from "./NoNotifications";
+import { useRequestStore } from "../store/useRequestStore";
+import { useAuthStore } from "../store/useAuthStore";
 
 const NotificationDropdown = () => {
-
   const [isOpen, setIsOpen] = useState(false);
-  const { requests, getFriendRequests, hasCheckedNotifications, hasNewNotifications } = useRequestStore();
 
-  const requestNotif = requests;
+  const {
+    requests,
+    getFriendRequests,
+  } = useRequestStore();
+  const { authUser } = useAuthStore();
 
   useEffect(() => {
-    getFriendRequests()
-  }, [getFriendRequests])
+    getFriendRequests();
+  }, [getFriendRequests]);
 
-  // const requestNotif = null
+  const incomingRequests = requests.filter(
+    (req) => req.receiverId === authUser?._id && req.status === "p"
+  );
 
   const toggleDropdown = () => {
-    setIsOpen(!isOpen)
-  }
+    setIsOpen(!isOpen);
+  };
 
   return (
     <div className="relative inline-block text-left">
@@ -36,25 +41,23 @@ const NotificationDropdown = () => {
           <div className="px-6 py-2 bg-base-200 rounded-t-md border-b-2 border-b-base-content">
             <span className="flex align-middle font-bold">Notifications</span>
           </div>
-          {
-            <div className="py-1">
-              {
-                requestNotif.map((notif) => (
-                  <RequestNotification username={notif.senderName} profilePic={notif.senderProfile} />
-                ))
-              }
-              {
-                requestNotif.length === 0 && (
-                  <NoNotifications />
-                )
-              }
-            </div>
-          }
-
+          <div className="py-1">
+            {incomingRequests.length > 0 ? (
+              incomingRequests.map((notif) => (
+                <RequestNotification
+                  key={notif._id}
+                  username={notif.senderName}
+                  profilePic={notif.senderProfile}
+                />
+              ))
+            ) : (
+              <NoNotifications />
+            )}
+          </div>
         </div>
       )}
     </div>
   );
-}
+};
 
-export default NotificationDropdown
+export default NotificationDropdown;
