@@ -1,18 +1,13 @@
-import React, { useEffect } from "react";
 import { UserPlus2, X } from "lucide-react";
 import { useRequestStore } from "../store/useRequestStore";
 
 function SearchResult({ id, username, fullName, profilePic }) {
   const {
     sendFriendRequest,
-    getFriendRequests,
     cancelFriendRequest,
     requests,
   } = useRequestStore();
 
-  useEffect(() => {
-    getFriendRequests();
-  });
 
   const existingRequest = requests.find(
     (r) => r.receiverId === id && r.status === "p"

@@ -15,6 +15,7 @@ const NoChatSelected = () => {
   } = useRequestStore();
   const { authUser } = useAuthStore();
 
+  // TODO: Move this to search bar? Figure out how to update search res buttons on clicking
   useEffect(() => {
     getFriendRequests();
     getFriends();
@@ -54,6 +55,7 @@ const NoChatSelected = () => {
           .filter((user) => user._id !== authUser?._id)
           .map((user) => (
             <SearchResult
+              key={user._id}
               id={user._id}
               username={user.fullName}
               profilePic={user.profilePic}
