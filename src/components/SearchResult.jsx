@@ -1,5 +1,6 @@
 import { UserPlus2, X } from "lucide-react";
 import { useRequestStore } from "../store/useRequestStore";
+import toast from "react-hot-toast";
 
 function SearchResult({ id, username, fullName, profilePic }) {
   const {
@@ -17,7 +18,7 @@ function SearchResult({ id, username, fullName, profilePic }) {
     try {
       await sendFriendRequest(id);
     } catch (error) {
-      console.error("Failed to send friend request: ", error);
+      toast.error("Failed to send friend request: ", error);
     }
   };
 
@@ -25,7 +26,7 @@ function SearchResult({ id, username, fullName, profilePic }) {
     try {
       await cancelFriendRequest(id);
     } catch (error) {
-      console.error("Failed to cancel friend request: ", error);
+      toast.error("Failed to cancel friend request: ", error);
     }
   };
 

@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 
 const SearchBar = () => {
   const [searchItem, setText] = useState("");
-  const { searchResults, getSearchResults, clearSearchResults } =
+  const { getSearchResults, clearSearchResults } =
     useRequestStore();
 
   const handleSendSearchItem = async (e) => {
@@ -17,18 +17,18 @@ const SearchBar = () => {
       return;
     }
 
-    //* Toast for non-existent usernames
-    if (searchItem.trim() && searchResults.length === 0) {
-      toast.error("User does not exist!");
-      return;
-    }
-
     try {
-      await getSearchResults({
+      const results = await getSearchResults({
         username: searchItem.trim(),
       });
 
       setText(searchItem);
+
+      //* Toast for non-existent users
+      if (!results || results.length === 0) {
+        toast.error("User does not exist!");
+        return;
+      }
     } catch (error) {
       console.error("Failed to search for user: ", error);
     }
