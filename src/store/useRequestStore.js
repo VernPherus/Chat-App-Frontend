@@ -56,6 +56,10 @@ export const useRequestStore = create((set, get) => ({
     }
   },
 
+  clearSearchResults: async () => {
+    set({ searchResults: [] });
+  },
+
   sendFriendRequest: async (userId) => {
     const requests = get();
     try {

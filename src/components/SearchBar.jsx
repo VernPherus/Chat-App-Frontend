@@ -1,46 +1,57 @@
-import React, { useState } from 'react'
-import { Search } from 'lucide-react'
-import { useRequestStore } from '../store/useRequestStore';
+import React, { useState } from "react";
+import { Search } from "lucide-react";
+import { useRequestStore } from "../store/useRequestStore";
+import toast from "react-hot-toast";
 
 const SearchBar = () => {
+  const [searchItem, setText] = useState("");
+  const { searchResults, getSearchResults, clearSearchResults } =
+    useRequestStore();
 
-    const [searchItem, setText] = useState("");
-    const { getSearchResults } = useRequestStore();
+  const handleSendSearchItem = async (e) => {
+    e.preventDefault();
 
-    const handleSendSearchItem = async (e) => {
-        e.preventDefault();
-        if (!searchItem.trim()) return;
-
-        try {
-            await getSearchResults({
-                username: searchItem.trim()
-            });
-
-            setText(searchItem)
-        } catch (error) {
-            console.error("Failed to search for user: ", error)
-        }
-
+    //* Clear out search items with empty search bar
+    if (!searchItem.trim()) {
+      clearSearchResults();
+      return;
     }
 
-    return (
-        <div className="w-full">
-            <form onSubmit={handleSendSearchItem} className="flex items-center gap-2">
-                <div className="flex-1 flex gap-2">
-                    <input
-                        type="text"
-                        className="w-full input input-bordered rounded-lg input-sm sm:input-md"
-                        placeholder="Search"
-                        value={searchItem}
-                        onChange={(e) => setText(e.target.value)}
-                    />
-                </div>
-                <button type="submit" className="btn btn-sm btn-circle">
-                    <Search size={22} />
-                </button>
-            </form>
-        </div>
-    )
-}
+    //* Toast for non-existent usernames
+    if (searchItem.trim() && searchResults.length === 0) {
+      toast.error("User does not exist!");
+      return;
+    }
 
-export default SearchBar
+    try {
+      await getSearchResults({
+        username: searchItem.trim(),
+      });
+
+      setText(searchItem);
+    } catch (error) {
+      console.error("Failed to search for user: ", error);
+    }
+  };
+
+  return (
+    <div className="w-full">
+      <form onSubmit={handleSendSearchItem} className="flex items-center gap-2">
+        <div className="flex-1 flex gap-2">
+          <input
+            type="text"
+            className="w-full input input-bordered rounded-lg input-sm sm:input-md"
+            placeholder="Search"
+            value={searchItem}
+            onChange={(e) => setText(e.target.value)}
+          />
+        </div>
+        <button type="submit" className="btn btn-sm btn-circle">
+          <Search size={22} />
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default SearchBar;
