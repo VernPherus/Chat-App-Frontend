@@ -49,7 +49,7 @@ export const useRequestStore = create((set, get) => ({
     try {
       const res = await axiosInstance.post("/request/search", searchItem);
       set({ searchResults: res.data });
-      return res.data
+      return res.data;
     } catch (error) {
       toast.error(error.response.data.message);
       return [];
@@ -63,18 +63,18 @@ export const useRequestStore = create((set, get) => ({
   },
 
   sendFriendRequest: async (userId) => {
-    const requests = get();
+    const { requests } = get();
     try {
       const res = await axiosInstance.post(`/request/send-request/${userId}`);
       set({ requests: [...requests, res.data] });
-      toast.success("Friend request sent!")
+      toast.success("Friend request sent!");
     } catch (error) {
       toast.error(error.response.data.message);
     }
   },
 
   unfriendUser: async (friendId) => {
-    const friends = get();
+    const { friends } = get();
     try {
       const res = await axiosInstance.post(`/request/unfriend`, friendId);
       set({ friends: [...friends, res.data] });
@@ -85,7 +85,7 @@ export const useRequestStore = create((set, get) => ({
   },
 
   acceptFriendRequest: async (friendId) => {
-    const friends = get();
+    const { friends } = get();
     try {
       const res = await axiosInstance.put(
         `/request/accept-request/:${friendId}`
@@ -98,7 +98,7 @@ export const useRequestStore = create((set, get) => ({
   },
 
   rejectFriendRequest: async (friendId) => {
-    const friends = get();
+    const { friends } = get();
     try {
       const res = await axiosInstance.put(
         `/request/reject-request/:${friendId}`
