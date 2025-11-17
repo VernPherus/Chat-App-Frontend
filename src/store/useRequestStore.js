@@ -26,7 +26,7 @@ export const useRequestStore = create((set, get) => ({
       const res = await axiosInstance.get("/request/all-requests");
       set({ requests: res.data });
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error("Requests Failed to load: ", error.response.data.message);
     } finally {
       set({ isFriendRequestsLoading: false });
     }
@@ -38,7 +38,7 @@ export const useRequestStore = create((set, get) => ({
       const res = await axiosInstance.get("/request/all-friends");
       set({ friends: res.data });
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error("Friends Failed to load: ", error.response.data.message);
     } finally {
       set({ isFriendsLoading: false });
     }
@@ -51,7 +51,7 @@ export const useRequestStore = create((set, get) => ({
       set({ searchResults: res.data });
       return res.data;
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error("Search Results Failed: ", error.response.data.message);
       return [];
     } finally {
       set({ isSearchResultsLoading: false });
@@ -69,18 +69,18 @@ export const useRequestStore = create((set, get) => ({
       set({ requests: [...requests, res.data] });
       toast.success("Friend request sent!");
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error("Send FR Failed: ", error.response.data.message);
     }
   },
 
   unfriendUser: async (friendId) => {
     const { friends } = get();
     try {
-      const res = await axiosInstance.post(`/request/unfriend`, friendId);
+      const res = await axiosInstance.put(`/request/unfriend`, friendId);
       set({ friends: [...friends, res.data] });
       toast.success("Unfriended user!");
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error("Unfriend Failed: " ,error.response.data.message);
     }
   },
 
@@ -93,7 +93,7 @@ export const useRequestStore = create((set, get) => ({
       set({ friends: [...friends, res.data] });
       toast.success("Friend request accepted!");
     } catch (error) {
-      toast.error(error.reponse.data.message);
+      toast.error("Accept Failed: ", error.reponse.data.message);
     }
   },
 
@@ -106,18 +106,18 @@ export const useRequestStore = create((set, get) => ({
       set({ friends: [...friends, res.data] });
       toast.success("Friend request rejected!");
     } catch (error) {
-      toast.error(error.reponse.data.message);
+      toast.error("Reject Failed: ", error.reponse.data.message);
     }
   },
 
   cancelFriendRequest: async (userId) => {
     const { requests } = get();
     try {
-      await axiosInstance.post(`/request/cancel-request/${userId}`);
+      await axiosInstance.put(`/request/cancel-request/${userId}`);
       set({ requests: requests.filter((r) => r.receiverId !== userId) });
       toast.success("Friend request cancelled!");
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error("Cancel Failed: ", error.response.data.message);
     }
   },
 }));
