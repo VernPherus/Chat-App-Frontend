@@ -17,6 +17,11 @@ const SearchBar = () => {
       return;
     }
 
+    if (searchItem.length < 3){
+      toast.error("Enter atleast 3 characters.")
+      return;
+    }
+
     try {
       const results = await getSearchResults({
         username: searchItem.trim(),

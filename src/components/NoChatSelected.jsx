@@ -50,16 +50,19 @@ const NoChatSelected = () => {
           </p>
         </div>
       ) : (
-        searchResults
-          .filter((user) => user._id !== authUser?._id)
-          .map((user) => (
-            <SearchResult
-              key={user._id}
-              id={user._id}
-              username={user.fullName}
-              profilePic={user.profilePic}
-            />
-          ))
+        <div className="overflow-y-auto w-full">
+          {searchResults
+            .filter((user) => user._id !== authUser?._id)
+            .map((user) => (
+              <SearchResult
+                key={user._id}
+                id={user._id}
+                username={user.fullName}
+                profilePic={user.profilePic}
+              />
+            ))}
+        </div>
+
       )}
     </div>
   );
