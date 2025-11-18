@@ -46,6 +46,7 @@ const NotificationDropdown = () => {
               incomingRequests.map((notif) => (
                 <RequestNotification
                   key={notif._id}
+                  requestId={notif._id}
                   username={notif.senderName}
                   profilePic={notif.senderProfile}
                 />

@@ -3,13 +3,13 @@ import React from "react";
 import { useRequestStore } from "../store/useRequestStore"
 import toast from "react-hot-toast";
 
-function RequestNotification({requestId, username, profilePic}) {
+function RequestNotification({ requestId, username, profilePic }) {
 
   const { acceptFriendRequest, rejectFriendRequest } = useRequestStore();
 
   const handleAcceptFriendRequest = async () => {
     try {
-      await acceptFriendRequest()
+      await acceptFriendRequest(requestId)
     } catch (error) {
       toast.error("Failed to accept request: ", error)
     }
@@ -17,7 +17,7 @@ function RequestNotification({requestId, username, profilePic}) {
 
   const handleRejectFriendRequest = async () => {
     try {
-      await rejectFriendRequest()
+      await rejectFriendRequest(requestId)
     } catch (error) {
       toast.error("Failed to accept request: ", error)
     }
@@ -39,10 +39,10 @@ function RequestNotification({requestId, username, profilePic}) {
         </span>
       </div>
       <div className="flex flex-row justify-evenly space-x-1">
-        <button className="btn btn-sm bg-base-100 border-base-content btn-circle">
+        <button onClick={handleAcceptFriendRequest} className="btn btn-sm bg-base-100 border-base-content btn-circle">
           <Check size={22} />
         </button>
-        <button className="btn btn-sm bg-base-100 border-base-content btn-circle">
+        <button onClick={handleRejectFriendRequest} className="btn btn-sm bg-base-100 border-base-content btn-circle">
           <X size={22} />
         </button>
       </div>

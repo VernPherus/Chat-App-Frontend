@@ -84,11 +84,11 @@ export const useRequestStore = create((set, get) => ({
     }
   },
 
-  acceptFriendRequest: async (requestId) => {
+  acceptFriendRequest: async (requestId, requestData) => {
     const { friends } = get();
     try {
       const res = await axiosInstance.put(
-        `/request/accept-request/:${requestId}`
+        `/request/accept-request/:${requestId}`, requestData
       );
       set({ friends: [...friends, res.data] });
       toast.success("Friend request accepted!");
