@@ -84,11 +84,11 @@ export const useRequestStore = create((set, get) => ({
     }
   },
 
-  acceptFriendRequest: async (friendId) => {
+  acceptFriendRequest: async (requestId) => {
     const { friends } = get();
     try {
       const res = await axiosInstance.put(
-        `/request/accept-request/:${friendId}`
+        `/request/accept-request/:${requestId}`
       );
       set({ friends: [...friends, res.data] });
       toast.success("Friend request accepted!");
@@ -97,11 +97,11 @@ export const useRequestStore = create((set, get) => ({
     }
   },
 
-  rejectFriendRequest: async (friendId) => {
+  rejectFriendRequest: async (requestId) => {
     const { friends } = get();
     try {
       const res = await axiosInstance.put(
-        `/request/reject-request/:${friendId}`
+        `/request/reject-request/:${requestId}`
       );
       set({ friends: [...friends, res.data] });
       toast.success("Friend request rejected!");
@@ -110,11 +110,11 @@ export const useRequestStore = create((set, get) => ({
     }
   },
 
-  cancelFriendRequest: async (userId) => {
+  cancelFriendRequest: async (requestId) => {
     const { requests } = get();
     try {
-      await axiosInstance.put(`/request/cancel-request/${userId}`);
-      set({ requests: requests.filter((r) => r.receiverId !== userId) });
+      await axiosInstance.put(`/request/cancel-request/${requestId}`);
+      set({ requests: requests.filter((r) => r.receiverId !== requestId) });
       toast.success("Friend request cancelled!");
     } catch (error) {
       toast.error("Cancel Failed: ", error.response.data.message);

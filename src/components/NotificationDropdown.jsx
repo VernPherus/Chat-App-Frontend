@@ -41,7 +41,7 @@ const NotificationDropdown = () => {
           <div className="px-6 py-2 bg-base-200 rounded-t-md border-b-2 border-b-base-content">
             <span className="flex align-middle font-bold">Notifications</span>
           </div>
-          <div className="py-1">
+          <div className="overflow-y-auto py-1">
             {incomingRequests.length > 0 ? (
               incomingRequests.map((notif) => (
                 <RequestNotification
