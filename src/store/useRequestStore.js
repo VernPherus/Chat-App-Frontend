@@ -88,7 +88,7 @@ export const useRequestStore = create((set, get) => ({
     const { friends } = get();
     try {
       const res = await axiosInstance.put(
-        `/request/accept-request/:${requestId}`, requestData
+        `/request/accept-request/${requestId}`, requestData
       );
       set({ friends: [...friends, res.data] });
       toast.success("Friend request accepted!");
@@ -101,7 +101,7 @@ export const useRequestStore = create((set, get) => ({
     const { friends } = get();
     try {
       const res = await axiosInstance.put(
-        `/request/reject-request/:${requestId}`
+        `/request/reject-request/${requestId}`
       );
       set({ friends: [...friends, res.data] });
       toast.success("Friend request rejected!");

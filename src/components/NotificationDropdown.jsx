@@ -47,6 +47,8 @@ const NotificationDropdown = () => {
                 <RequestNotification
                   key={notif._id}
                   requestId={notif._id}
+                  senderId = {notif.senderId}
+                  receiverId = {notif.receiverId}
                   username={notif.senderName}
                   profilePic={notif.senderProfile}
                 />

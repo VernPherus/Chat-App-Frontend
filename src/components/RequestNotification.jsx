@@ -3,13 +3,16 @@ import React from "react";
 import { useRequestStore } from "../store/useRequestStore"
 import toast from "react-hot-toast";
 
-function RequestNotification({ requestId, username, profilePic }) {
+function RequestNotification({ requestId, username, profilePic, senderId, receiverId }) {
 
   const { acceptFriendRequest, rejectFriendRequest } = useRequestStore();
 
   const handleAcceptFriendRequest = async () => {
     try {
-      await acceptFriendRequest(requestId)
+      await acceptFriendRequest(requestId, {
+        senderId: senderId,
+        receiverId: receiverId,
+      })
     } catch (error) {
       toast.error("Failed to accept request: ", error)
     }
