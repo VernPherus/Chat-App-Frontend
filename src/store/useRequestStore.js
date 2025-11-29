@@ -80,7 +80,7 @@ export const useRequestStore = create((set, get) => ({
       set({ friends: [...friends, res.data] });
       toast.success("Unfriended user!");
     } catch (error) {
-      toast.error("Unfriend Failed: " ,error.response.data.message);
+      toast.error("Unfriend Failed: ", error.response.data.message);
     }
   },
 
@@ -88,7 +88,8 @@ export const useRequestStore = create((set, get) => ({
     const { friends } = get();
     try {
       const res = await axiosInstance.put(
-        `/request/accept-request/${requestId}`, requestData
+        `/request/accept-request/${requestId}`,
+        requestData
       );
       set({ friends: [...friends, res.data] });
       toast.success("Friend request accepted!");
